@@ -14,7 +14,7 @@ var Message = mongoose.model('Message',{
   message : String
 })
 
-var dbUrl = 'mongodb://mongodb3:27017/msgsDb?replicaSet=rs0'
+var dbUrl = 'mongodb://mongodb1,mongodb2,mongodb3/msgsDb?replicaSet=rs0'
 
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
@@ -61,7 +61,7 @@ io.on('connection', () =>{
   console.log('a user is connected')
 })
 
-mongoose.connect(dbUrl ,{useMongoClient : true} ,(err) => {
+mongoose.connect(dbUrl ,{useNewUrlParser : true, useUnifiedTopology : true} ,(err) => {
   console.log('mongodb connected',err);
 })
 
